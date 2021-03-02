@@ -27,12 +27,15 @@ module.exports = (db, updateAppointment) => {
   });
 
   router.put("/appointments/:id", (request, response) => {
+    
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
 
     const { student, interviewer } = request.body.interview;
+
+    console.log(request.params.id, 'STUDENT:', student, 'interviewer', interviewer)
 
     db.query(
       `
